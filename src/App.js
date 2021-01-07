@@ -30,7 +30,7 @@ function App() {
   const getWeather = async (latitude, longitude) => {
     const API_KEY = "b1c955660ab089da9de517056d750831";
     // const apiRoot = "https://openweathermap.org/current";
-    const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+    const url = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
     console.log(url);
     let response = await fetch(url);
     let data = await response.json();
