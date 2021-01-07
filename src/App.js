@@ -5,9 +5,9 @@ function App() {
   // states
   const [longitude, setLongitude] = useState(null);
   const [latitude, setLatitude] = useState(null);
-  const [data, setData] = useState(null);
-  const [tempC, updateTempC] = useState(null);
-  const [tempF, updateTempF] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
+  const [tempC, setTempC] = useState(null);
+  const [tempF, setTempF] = useState(null);
   const [icon, updateIcon] = useState(null);
 
   useEffect(() => {
@@ -16,10 +16,7 @@ function App() {
       setLongitude(position.coords.longitude);
       setLatitude(position.coords.latitude);
       getWeather(position.coords.latitude, position.coords.longitude);
-      getTempC(data);
-      getTempF(data);
-      getIcon(data);
-      console.log("lat:", position.coords.latitude);
+      // console.log("lat:", position.coords.latitude);
     };
     const error = (error) => {
       console.log(error);
@@ -33,23 +30,26 @@ function App() {
     const url = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
     console.log(url);
     let response = await fetch(url);
-    let data = await response.json();
-    console.log("data", data);
+    let dataObj = await response.json();
+    console.log("data", dataObj);
     // write the data to the state
-    setData(data);
-    console.log("weather", data.main.temp);
+    setWeatherData(dataObj);
+    console.log("temp", dataObj.main.temp);
+    getTempC(dataObj);
+    getTempF(dataObj);
+    getIcon(dataObj);
   };
 
-  const getTempC = (data) => {
-    let c = data.main.temp - 273.15;
-    updateTempC(c);
-    console.log("updateTempC", c);
+  const getTempC = (dataObj) => {
+    let c = dataObj.main.temp - 273.15;
+    setTempC(c);
+    // console.log("updateTempC", c);
   };
 
-  const getTempF = (data) => {
-    let f = ((data.main.temp - 273.15) * 9) / 5 + 32;
-    updateTempF(f);
-    console.log("updateTempF", f);
+  const getTempF = (dataObj) => {
+    let f = ((dataObj.main.temp - 273.15) * 9) / 5 + 32;
+    setTempF(f);
+    // console.log("updateTempF", f);
   };
 
   const getIcon = (data) => {
@@ -59,17 +59,18 @@ function App() {
     console.log(`http://openweathermap.org/img/wn/${iconCode}.png`);
   };
 
-  if (!data) {
+  if (!weatherData) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="App">
       <WeatherDisplay
-        city={data.name}
+        city={weatherData.name}
+        country={weatherData.sys.country}
         tempC={tempC}
         tempF={tempF}
-        description={data.weather[0].description}
+        description={weatherData.weather[0].description}
         icon={icon}
       />
     </div>

@@ -12,7 +12,9 @@ const DisplayWeather = (props) => {
   return (
     <div className={`display-weather`}>
       <div>
-        <h1 className={"city"}>{props.city}</h1>
+        <h1 className={"city"}>
+          {props.city}, {props.country}
+        </h1>
       </div>
       <div>
         <h2 className={"temp"}>
