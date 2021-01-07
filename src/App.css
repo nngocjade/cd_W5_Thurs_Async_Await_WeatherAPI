@@ -6,15 +6,40 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: rgb(14, 14, 14);
 }
 .display-weather {
   width: 35em;
-  height: 25em;
+  height: 30em;
   border-radius: 20px;
-  box-shadow: 2px 2px 40px 3px gray;
+  box-shadow: 2px 2px 40px 4px rgb(82, 82, 82);
+  background-color: rgba(128, 128, 128, 0.226);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.city {
+  color: white;
+  font-size: 3rem;
+}
+
+.temp {
+  color: green;
+  font-size: 3rem;
+}
+
+.weather-des-img {
+  display: flex;
+}
+
+#weatherIcon {
+  width: 5rem;
+  height: 5rem;
+}
+
+.description {
+  color: rgb(175, 175, 175);
 }

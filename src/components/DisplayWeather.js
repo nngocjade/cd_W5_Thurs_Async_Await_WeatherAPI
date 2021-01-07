@@ -12,17 +12,18 @@ const DisplayWeather = (props) => {
   return (
     <div className={`display-weather`}>
       <div>
-        <h1>{props.city}</h1>
+        <h1 className={"city"}>{props.city}</h1>
       </div>
       <div>
-        <h2>
+        <h2 className={"temp"}>
           {props.tempC}
           {"\u00b0"}C - {props.tempF}
           {"\u00b0"}F
         </h2>
       </div>
-      <div>
-        <h1>{props.description}</h1>
+      <div className={"weather-des-img"}>
+        <h1 className={"description"}>{props.description}</h1>
+        <img id={"weatherIcon"} src={props.icon} alt="current weather icon" />
       </div>
     </div>
   );

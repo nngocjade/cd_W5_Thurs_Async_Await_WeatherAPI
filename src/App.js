@@ -8,6 +8,7 @@ function App() {
   const [data, setData] = useState(null);
   const [tempC, updateTempC] = useState(null);
   const [tempF, updateTempF] = useState(null);
+  const [icon, updateIcon] = useState(null);
 
   useEffect(() => {
     const success = (position) => {
@@ -17,6 +18,7 @@ function App() {
       getWeather(position.coords.latitude, position.coords.longitude);
       getTempC(data);
       getTempF(data);
+      getIcon(data);
       console.log("lat:", position.coords.latitude);
     };
     const error = (error) => {
@@ -50,6 +52,13 @@ function App() {
     console.log("updateTempF", f);
   };
 
+  const getIcon = (data) => {
+    let iconCode = data.weather[0].icon;
+    updateIcon(`http://openweathermap.org/img/wn/${iconCode}.png`);
+    console.log("iconcode", iconCode);
+    console.log(`http://openweathermap.org/img/wn/${iconCode}.png`);
+  };
+
   if (!data) {
     return <div>Loading...</div>;
   }
@@ -61,11 +70,11 @@ function App() {
         tempC={tempC}
         tempF={tempF}
         description={data.weather[0].description}
+        icon={icon}
       />
     </div>
   );
 }
-// tempC={tempC} tempF={tempF}
 export default App;
 
 // useEffect(() => {
